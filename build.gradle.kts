@@ -1,8 +1,11 @@
 plugins {
     id("java")
+    id("application")
 }
-
-group = "com.afonso-fernandes.hero"
+application {
+    mainClass.set("Application")
+}
+group = "com.afonsofernandes.hero"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -12,8 +15,12 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation("com.googlecode.lanterna:lanterna:3.1.1")
 }
 
 tasks.test {
     useJUnitPlatform()
 }
+
+// https://mvnrepository.com/artifact/com.googlecode.lanterna/lanterna
+
