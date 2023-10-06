@@ -9,11 +9,14 @@ import com.googlecode.lanterna.TerminalSize;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Arena {
     private int width;
     private int height;
     private Hero hero;
+    private List<Wall> walls;
 
 
 
@@ -21,6 +24,7 @@ public class Arena {
         this.width = width;
         this.height = height;
         this.hero = new Hero(width / 2, height / 2);
+        this.walls = createWalls();
     }
 
 
@@ -54,6 +58,19 @@ public class Arena {
         }
     }
 
+    private List<Wall> createWalls() {
+        List<Wall> walls = new ArrayList<>();
+        for (int c = 0; c < width; c++) {
+            walls.add(new Wall(c, 0));
+            walls.add(new Wall(c, height - 1));
+        }
+        for (int r = 1; r < height - 1; r++) {
+            walls.add(new Wall(0, r));
+            walls.add(new Wall(width - 1, r));
+        }
+        return walls;
+    }
+
     public void moveHero(Position position) {
         if (canHeroMove(position))
             hero.setPosition(position);
@@ -68,7 +85,8 @@ public class Arena {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#005599"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
         hero.draw(textGraphics);
-
+        for (Wall wall : walls)
+            wall.draw(graphics);
 
     }
 }
