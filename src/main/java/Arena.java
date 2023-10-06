@@ -1,8 +1,12 @@
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.TerminalSize;
+
 
 import java.io.IOException;
 
@@ -10,6 +14,9 @@ public class Arena {
     private int width;
     private int height;
     private Hero hero;
+
+
+
     public Arena(int width, int height){
         this.width = width;
         this.height = height;
@@ -56,8 +63,12 @@ public class Arena {
         return position.getX() >= 0 && position.getX() < width && position.getY() >= 0 && position.getY() < height;
     }
 
-    public void draw(Screen screen) {
-        hero.draw(screen);
+    public void draw(TextGraphics textGraphics) {
+        TextGraphics graphics = Game.screen.newTextGraphics();
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#005599"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        hero.draw(textGraphics);
+
 
     }
 }
