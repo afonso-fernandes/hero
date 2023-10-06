@@ -11,25 +11,24 @@ import java.io.IOException;
 
 class Game {
     private Screen screen;
-
-    private int x = 10;
-    private int y = 10;
+    private Hero hero;
 
     public Game() throws IOException {
 
         TerminalSize terminalSize = new TerminalSize(60, 60);
-        DefaultTerminalFactory terminalFactory = new
-                DefaultTerminalFactory()
-                .setInitialTerminalSize(terminalSize);
+        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
         Terminal terminal = terminalFactory.createTerminal();
         screen = new TerminalScreen(terminal);
         screen.setCursorPosition(null); // we don't need a cursor
         screen.startScreen(); // screens must be started
         screen.doResizeIfNecessary(); // resize screen if necessary
+
+        hero = new Hero(10, 10);
     }
     private void draw() throws IOException {
+
         screen.clear();
-        screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+        hero.draw(screen);
         screen.refresh();
     }
     public void run() throws IOException {
@@ -41,16 +40,16 @@ class Game {
             KeyType keyType = key.getKeyType();
             switch (keyType) {
                 case ArrowLeft:
-                    x--;
+                    hero.moveLeft();
                     break;
                 case ArrowDown:
-                    y++;
+                    hero.moveDown();
                     break;
                 case ArrowRight:
-                    x++;
+                    hero.moveRight();
                     break;
                 case ArrowUp:
-                    y--;
+                    hero.moveUp();
                     break;
                 case Character:
                     char character = key.getCharacter();
@@ -75,7 +74,7 @@ class Game {
 
     private void processKey(KeyStroke key){
 
-        System.out.println(x);
+        System.out.println();
     }
 }
 
