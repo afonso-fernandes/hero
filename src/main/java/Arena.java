@@ -73,7 +73,12 @@ public class Arena {
 
     public void moveHero(Position position) {
         if (canHeroMove(position))
-            hero.setPosition(position);
+            for (Wall wall : walls) {
+                if (wall.getPosition().equals(position)) {
+                    return;
+                }
+            }
+        hero.setPosition(position);
     }
 
     public boolean canHeroMove(Position position){
@@ -85,8 +90,8 @@ public class Arena {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#005599"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
         hero.draw(textGraphics);
-        for (Wall wall : walls)
+        for (Wall wall : walls) {
             wall.draw(graphics);
-
+        }
     }
 }
