@@ -11,13 +11,14 @@ import com.googlecode.lanterna.TerminalSize;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Arena {
     private int width;
     private int height;
     private Hero hero;
     private List<Wall> walls;
-
+    private List<Coin> coins;
 
 
     public Arena(int width, int height){
@@ -25,6 +26,7 @@ public class Arena {
         this.height = height;
         this.hero = new Hero(width / 2, height / 2);
         this.walls = createWalls();
+        this.coins = createCoins();
     }
 
 
@@ -56,6 +58,7 @@ public class Arena {
             default:
                 break;
         }
+        retrieveCoins();
     }
 
     private List<Wall> createWalls() {
@@ -71,6 +74,23 @@ public class Arena {
         return walls;
     }
 
+    private List<Coin> createCoins() {
+        Random random = new Random();
+        ArrayList<Coin> coins = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            coins.add(new Coin(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return coins;
+    }
+
+    private void retrieveCoins(){
+        List<Coin> coinsToRemove = new ArrayList<>();
+        Position heroPosition = hero.getPosition();
+
+        for(Coin coin : coins){
+            if (coin.getPosition().equals(heroPosition)) coinsToRemove.add(coin);
+        }
+        coins.removeAll(coinsToRemove);
+    }
     public void moveHero(Position position) {
         if (canHeroMove(position))
             for (Wall wall : walls) {
@@ -92,6 +112,9 @@ public class Arena {
         hero.draw(textGraphics);
         for (Wall wall : walls) {
             wall.draw(graphics);
+        }
+        for(Coin coin : coins){
+            coin.draw(textGraphics);
         }
     }
 }
