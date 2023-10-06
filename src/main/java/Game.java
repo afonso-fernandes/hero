@@ -38,11 +38,13 @@ class Game {
             draw();
             KeyStroke key = screen.readInput();
             processKey(key);
-
+            arena.processMonster();
+            arena.verifyMonsterCollisions();
         }
     }
     private void processKey(KeyStroke key) throws IOException {
         arena.processKey(key);
     }
+
 }
 

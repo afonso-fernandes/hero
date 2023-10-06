@@ -10,7 +10,7 @@ public class Coin extends Element{
     public void draw(TextGraphics graphics) {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#005599"));
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "O");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "o");
     }
 
     public Position getPosition() {
