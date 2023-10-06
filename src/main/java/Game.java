@@ -31,6 +31,10 @@ class Game {
         hero.draw(screen);
         screen.refresh();
     }
+
+    private void moveHero(Position position) {
+        hero.setPosition(position);
+    }
     public void run() throws IOException {
         while (true) {
             draw();  // Draw the game screen
@@ -40,16 +44,16 @@ class Game {
             KeyType keyType = key.getKeyType();
             switch (keyType) {
                 case ArrowLeft:
-                    hero.moveLeft();
+                    moveHero(hero.moveLeft());
                     break;
                 case ArrowDown:
-                    hero.moveDown();
+                    moveHero(hero.moveDown());
                     break;
                 case ArrowRight:
-                    hero.moveRight();
+                    moveHero(hero.moveRight());
                     break;
                 case ArrowUp:
-                    hero.moveUp();
+                    moveHero(hero.moveUp());
                     break;
                 case Character:
                     char character = key.getCharacter();

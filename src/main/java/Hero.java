@@ -2,23 +2,23 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.screen.Screen;
 
-import java.awt.*;
-
 public class Hero  {
-    private int x;
-    private int y;
+    private Position position;
     public Hero(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.position = new Position(x, y);
     }
-    public int getX() {return x;}
-    public int getY() {return y;}
-    public void moveUp() {y--;}
-    public void moveRight() {x++;}
-    public void moveDown() {y++;}
-    public void moveLeft() {x--;}
+    public int getX() {return position.getX();}
+    public int getY() {return position.getY();}
+    public Position moveUp() {return new Position(position.getX(), position.getY() - 1);}
+    public Position moveRight() {return new Position(position.getX() + 1, position.getY());}
+    public Position moveDown() {return new Position(position.getX(), position.getY() + 1);}
+    public Position moveLeft() {return new Position(position.getX() - 1, position.getY());    }
 
     public void draw(Screen screen) {
-        screen.setCharacter(new TerminalPosition(x, y), TextCharacter.fromCharacter('A')[0]);
+        screen.setCharacter(new TerminalPosition(position.getX(), position.getY()), TextCharacter.fromCharacter('A')[0]);
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }
