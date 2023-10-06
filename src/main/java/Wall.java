@@ -5,11 +5,11 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.List;
 
-public class Wall {
+public class Wall extends Element{
 
-    private Position position;
+
     public Wall(int x, int y){
-        this.position = new Position(x, y);
+        super(x, y);
     }
 
 
